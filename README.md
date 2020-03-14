@@ -12,8 +12,8 @@ Joshua Kimani
 
 
 ## DB diagram
-![Awards]()
-![Link to dbdiagram.io](https://dbdiagram.io/d/5e6d2c634495b02c3b883ee2)
+![Awards](![Awards](https://user-images.githubusercontent.com/38456207/76689597-8ac3fd00-6648-11ea-84e4-c11540ab0da9.png)
+
 
 
 
