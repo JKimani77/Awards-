@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.test import TestCase
-from .models import Project,Profile,Review
+from .models import Projects,Profile,Rating
 from django.contrib.auth.models import User
 
 
@@ -40,3 +40,53 @@ class ProfileModelTestCase(TestCase):
         profiley = Profile.objects.all()
         self.assertTrue(len(profiley) > 0)
         
+class ProjectsModelTestCase(TestCase):
+    '''
+    Test Class for Project Model
+    '''
+    def setUp(self):
+        self.user_one = User(username='stunn', email='stunn@gmail.com', password='123456')
+        self.profile_one = Profile(profile_pic='path/image.png',user=self.user_one, bio="Ola,ola,ola,ola,ola,ola,ola,ola",contact_phonenumber='0712345678',contact_email = 'stann@gmail.com')
+        self.project_one = Projects(title='GithubSearch', description='Project one', project_url='/path/screenshot.png',profile=self.profile_one)
+        
+        
+    def test_save_project(self):
+        self.user_one.save()
+        self.profile_one.save()
+        self.project_one.save_project()
+        
+        projects = Projects.objects.all()
+        self.assertTrue(len(projects)>0)
+    
+    def test_search_project(self):
+        self.user_one.save()
+        self.profile_one.save()
+        self.project_one.save_project()
+        
+        projects = self.project_one.search_by_project('Delani')
+        self.assertTrue(len(projects) > 0)
+    def test_get_proj_id(self):
+        self.user_one.save()
+        self.profile_one.save()
+        self.project_one.save()
+        self.project_one.get_proj_id(self.project_one.id)
+        projects = Project.objects.all()
+        self.assertTrue(len(projects)> 0)
+        
+    def test_update_project(self):
+        self.user_one.save()
+        self.profile_one.save()
+        self.project_one.save()
+        self.project_one.get_proj_id(self.project_one.id)
+        self.project_one.update_project('Delani Studio Site')
+        self.assertTrue(self.project_one.project_title=='Delani Studio Site')
+    
+    def test_delete_project(self):
+        self.user_one.save()
+        self.profile_one.save_profile()
+        self.project_one.save_project()
+        self.project_one.delete_project()
+        projects = Projects.objects.all()
+        self.assertTrue(len(projects)== 0)
+
+

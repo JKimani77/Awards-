@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 # import cloudinary
 from django.db import models
 from django.contrib.auth.models import User
+import datetime as dt
 from cloudinary.models import CloudinaryField
 
 
