@@ -22,6 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
+MODE = config('MODE', default='dev')
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY')
@@ -32,7 +33,12 @@ MODE = config("MODE", default="dev")
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv()) 
 
-
+cloudinary.config(
+    cloud_name = config('CLOUD_NAME'),
+    api_key = config('CLOUD_API_KEY'),
+    api_secret = config('CLOUD_API_SECRET'),
+    secure = True
+)
 # Application definition
 
 INSTALLED_APPS = [
@@ -46,13 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cloudinary',
 ]
-cloudinary.config(
-    cloud_name = config('CLOUD_NAME'),
-    api_key = config('CLOUD_API_KEY'),
-    api_secret = config('CLOUD_API_SECRET'),
-    cloud_url = config('CLOUDINARY_URL'),
-    secure = True
-)
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
