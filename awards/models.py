@@ -70,19 +70,18 @@ class Projects(models.Model):
         projectz = cls.objects.filter(projects_title__icontains=search_term)
         return projectz
 
-# class Rating(models.Model):
-#     id = models.AutoField(primary_key=True)
-#     design = models.IntegerField()
-#     content = models.IntegerField()
-#     review = models.TextField(max_length = 500)
-#     usability = models.IntegerField()
-#     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name = '')
-#     project =  models.ForeignKey(Projects, on_delete = models.CASCADE)
-#     totalscore =  models.IntegerField()
+class Rating(models.Model):
+    design = models.IntegerField()
+    content = models.IntegerField()
+    review = models.TextField(max_length = 500)
+    usability = models.IntegerField()
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name = '')
+    project =  models.ForeignKey(Projects, on_delete = models.CASCADE)
+    totalscore =  models.IntegerField()
 
 
-#     def save_review(self):
-#       self.save()
+    def save_review(self):
+        self.save()
 
 
 ## will not create review class because it's defined as a column from the Rating model
