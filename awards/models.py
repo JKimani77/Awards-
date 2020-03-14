@@ -13,7 +13,7 @@ class Profile(models.Model):
     '''
     Profile model and methods associated
     '''
-    profile_pic =models.CloudinaryField(blank = True, null = True)
+    profile_pic = models.CloudinaryField(blank = True, null = True)
     bio = models.TextField(max_length = 150)
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name = '')
     contact_phonenumber = models.IntegerField(blank = True, null = True)
@@ -43,7 +43,7 @@ class Projects(models.Model):
     with the model
     '''
     title = models.CharField(max_length=50)
-    project_image =models.CloudinaryField()
+    project_image = models.CloudinaryField()
     description = models.TextField(max_length=250)
     profile = models.ForeignKey(Profile, on_delete = models.CASCADE)
     project_url = models.URLField()
