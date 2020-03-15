@@ -6,7 +6,7 @@ from awards import views
 
 urlpatterns  = [
     path('', views.index, name='index'),
-    # path(r'^profile/$', views.profile, name='create-profile'),
+    path('profile/', views.profile, name='create-profile'),
     # path(r'^profile/(\d+)/$', views.profile_user, name='dipslay-profile'),
     # path(r'^postproject/', views.post_project, name = 'postproject'),
     # path(r'^search/', views.search, name='searchbyprojectname'),
