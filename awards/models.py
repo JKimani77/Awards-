@@ -13,7 +13,7 @@ class Profile(models.Model):
     Profile model and methods associated
     '''
     profile_pic = CloudinaryField(blank = True, null = True)
-    bio = models.TextField(max_length = 150)
+    bio = models.TextField(max_length = 550)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     contact_phonenumber = models.IntegerField(blank = True, null = True)
     

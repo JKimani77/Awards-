@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'cloudinary',
     'accounts',
     'widget_tweaks',
+    'rest_framework',
 ]
 
 
