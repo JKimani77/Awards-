@@ -31,7 +31,9 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG',default=False, cast=bool)
 MODE = config("MODE", default="dev")
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv()) 
+# ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv()) 
+ALLOWED_HOSTS = ['localhost', '127.0.0.1',]
+
 
 cloudinary.config(
     cloud_name = config('CLOUD_NAME'),
@@ -51,6 +53,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'cloudinary',
+    'accounts',
+    'widget_tweaks',
 ]
 
 
@@ -164,6 +168,9 @@ EMAIL_HOST = config('EMAIL_HOST')
 EMAIL_PORT = config('EMAIL_PORT')
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+
+
+LOGOUT_REDIRECT_URL = 'index'
 
 
 #remember to add django_heroku.settings
