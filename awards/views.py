@@ -5,9 +5,13 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 from .models import Projects, Profile, Rating
 from .forms import ProfileForm
+from .serializer import ProjectsSerializer
+
 
 from django.conf import settings
 import os
@@ -43,3 +47,9 @@ def profile_user(request, id):
     profile = Profile.objects.filter(user_id=id).all()
     projects = Projects.objects.filter(profile=current_user.id).all()
     return render(request, 'profile.html', {"profile":profile, "projects":projects})
+
+class ProjectsList(APIView):
+    def get(self, request, format=None):
+        all_projects = Projects.objects.all()
+        serializers = ProjectsSerializer(all_projects, many=True)
+        return Response(serializers.data)
