@@ -42,10 +42,10 @@ class Projects(models.Model):
     with the model
     '''
     title = models.CharField(max_length=50)
-    project_image = CloudinaryField()
+    project_image = CloudinaryField(null=True)
     description = models.TextField(max_length=250)
-    profile = models.ForeignKey(Profile, on_delete = models.CASCADE)
-    project_url = models.URLField()
+    profile = models.ForeignKey(Profile, on_delete = models.CASCADE, null=True)
+    project_url = models.URLField(null=True)
 
 
     def save_project(self):

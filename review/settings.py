@@ -43,6 +43,12 @@ cloudinary.config(
 )
 # Application definition
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    )
+}
+
 INSTALLED_APPS = [
     'awards',
     'bootstrap4',
@@ -56,6 +62,7 @@ INSTALLED_APPS = [
     'accounts',
     'widget_tweaks',
     'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 
