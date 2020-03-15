@@ -1,4 +1,4 @@
-# Awwwards Clone
+# Avvards Clone
 [![License: MIT]()](LICENSE)
 [![codebeat badge]()]()
 

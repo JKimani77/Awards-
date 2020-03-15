@@ -6,14 +6,13 @@ from django.contrib.auth.models import User
 import datetime as dt
 from cloudinary.models import CloudinaryField
 
-
 # Create your models here.
  
 class Profile(models.Model):
     '''
     Profile model and methods associated
     '''
-    profile_pic = models.CloudinaryField(blank = True, null = True)
+    profile_pic = CloudinaryField(blank = True, null = True)
     bio = models.TextField(max_length = 150)
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name = '')
     contact_phonenumber = models.IntegerField(blank = True, null = True)
@@ -27,7 +26,7 @@ class Profile(models.Model):
         '''delete user profile'''
         self.delete()
     
-    def update_profile(self, about):
+    def update_profile(self, bio):
         self.bio = bio
         self.save()
 
@@ -43,7 +42,7 @@ class Projects(models.Model):
     with the model
     '''
     title = models.CharField(max_length=50)
-    project_image = models.CloudinaryField()
+    project_image = CloudinaryField()
     description = models.TextField(max_length=250)
     profile = models.ForeignKey(Profile, on_delete = models.CASCADE)
     project_url = models.URLField()
@@ -60,6 +59,11 @@ class Projects(models.Model):
     def update_project(self, title):
         self.title = title
         self.save()
+
+    @classmethod
+    def get_project(cls):
+        projectz = cls.objects.all()
+        return projectz
 
     @classmethod
     def get_project_id(cls, id):
