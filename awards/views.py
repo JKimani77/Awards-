@@ -39,6 +39,7 @@ def profile_user(request, id):
     '''
     funcion to display user profile
     '''
+    current_user = request.user
     profile = Profile.objects.filter(user_id=id).all()
-    projects = Projects.objects.filter(profile=profile).all()
+    projects = Projects.objects.filter(profile=current_user.profile.id).all()
     return render(request, 'profile.html', {"profile":profile, "projects":projects})
