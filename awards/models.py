@@ -14,9 +14,9 @@ class Profile(models.Model):
     '''
     profile_pic = CloudinaryField(blank = True, null = True)
     bio = models.TextField(max_length = 150)
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name = '')
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     contact_phonenumber = models.IntegerField(blank = True, null = True)
-    contact_email = models.EmailField
+    
 
     def save_profile(self):
         '''save user profile'''
@@ -72,7 +72,7 @@ class Projects(models.Model):
 
     @classmethod
     def search_by_project(cls, search_term):
-        projectz = cls.objects.filter(projects_title__icontains=search_term)
+        projectz = cls.objects.filter(title__icontains=search_term)
         return projectz
 
 class Rating(models.Model):
@@ -80,7 +80,7 @@ class Rating(models.Model):
     content = models.IntegerField()
     review = models.TextField(max_length = 500)
     usability = models.IntegerField()
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name = '')
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     project =  models.ForeignKey(Projects, on_delete = models.CASCADE)
     totalscore =  models.IntegerField()
 
@@ -90,3 +90,4 @@ class Rating(models.Model):
 
 
 ## will not create review class because it's defined as a column from the Rating model
+#related name on User columns (Profile, Rating) omitted
