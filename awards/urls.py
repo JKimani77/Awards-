@@ -11,11 +11,16 @@ urlpatterns  = [
     path('profile/', views.profile, name='create-profile'),
     path('profile/<int:id>/', views.profile_user, name='profiley'),
     path('api/proj/', views.ProjectsList.as_view()),
-    path('api-token-auth/', obtain_auth_token),
+    path('api/proj/<int:id>/', views.ProjectsDescription.as_view()),
     # path(r'^postproject/', views.post_project, name = 'postproject'),
     # path(r'^search/', views.search, name='searchbyprojectname'),
     # # path(r'^login/', views.login, name='login'),
     # path(r'^logout/$', views.logout_view, name='logout'),
+    #https://overflow.io/ 
+    #https://www.abbeyroad.com/about-us
+    #https://www.swiss.com/worldofswiss/en
+    #https://www.virgin.com/
+    #https://www.franshalsmuseum.nl/en/
 
 ]
 

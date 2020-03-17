@@ -12,7 +12,7 @@ from rest_framework import status
 from .models import Projects, Profile, Rating
 from .forms import ProfileForm
 from .serializer import ProjectsSerializer
-
+from .permissions import IsAdminOrReadOnly
 
 from django.conf import settings
 import os
@@ -45,11 +45,13 @@ def profile_user(request, id):
     funcion to display user profile
     '''
     current_user = request.user
-    profile = Profile.objects.filter(user_id=id).all()
+    profile = Profile.objects.get_profile_id(current_user.id).all()
     projects = Projects.objects.filter(profile=current_user.id).all()
     return render(request, 'profile.html', {"profile":profile, "projects":projects})
 
 class ProjectsList(APIView):
+    permission_classes = (IsAdminOrReadOnly,)
+
     def get(self, request, format=None):
         all_projects = Projects.objects.all()
         serializers = ProjectsSerializer(all_projects, many=True)
@@ -57,7 +59,21 @@ class ProjectsList(APIView):
 
     def post(self, request, format=None):
         serializers = ProjectsSerializer(data=request.data)
+        
         if serializers.is_valid():
             serializers.save()
             return Response(serializers.data, status=status.HTTP_201_CREATED)
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+class ProjectsDescription(APIView):
+    permission_classes = (IsAdminOrReadOnly,)
+    def get_projects(selp, pk):
+        try:
+            return Projects.objects.get(pk=pk)
+        except Projects.DoesNotExist:
+            return Response(serializers.data)
+
+
+
+# token by postman after creating post method   "token": "555f67e0f9575a9f5ac3f09822c4c4e8ee30bd26"
+#555f67e0f9575a9f5ac3f09822c4c4e8ee30bd26

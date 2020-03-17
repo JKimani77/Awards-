@@ -32,7 +32,7 @@ class Profile(models.Model):
 
     @classmethod
     def get_profile_id(cls, id):
-        profile = cls.objects.filter(id=id).all()
+        profile = cls.objects.filter(user_id=id).all()
         return profile
 
 class Projects(models.Model):
@@ -42,10 +42,10 @@ class Projects(models.Model):
     with the model
     '''
     title = models.CharField(max_length=50)
-    project_image = CloudinaryField(null=True)
+    project_image = CloudinaryField()
     description = models.TextField(max_length=250)
-    profile = models.ForeignKey(Profile, on_delete = models.CASCADE, null=True)
-    project_url = models.URLField(null=True)
+    profile = models.ForeignKey(Profile, on_delete = models.CASCADE)
+    project_url = models.URLField()
 
 
     def save_project(self):
