@@ -11,7 +11,7 @@ urlpatterns  = [
     path('profile/', views.profile, name='create-profile'),
     path('profile/<int:id>/', views.profile_user, name='profiley'),
     path('api/proj/', views.ProjectsList.as_view()),
-    path('api/proj/<int:id>/', views.ProjectsDescription.as_view()),
+    # path('api/proj/<int:id>/', views.ProjectsDescription.as_view()),
     # path(r'^postproject/', views.post_project, name = 'postproject'),
     # path(r'^search/', views.search, name='searchbyprojectname'),
     # # path(r'^login/', views.login, name='login'),

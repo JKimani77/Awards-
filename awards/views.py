@@ -49,6 +49,19 @@ def profile_user(request, id):
     projects = Projects.objects.filter(profile=current_user.id).all()
     return render(request, 'profile.html', {"profile":profile, "projects":projects})
 
+def post(request):
+    current_user = request.user
+    if request.method=="POST":
+        form = ProjectsForm(request.POST,request.FILES)
+        if form.is_valid():
+            projects = form.save(commit=False)
+            projecst.profile = current_user.profile
+            projects.save_project()
+            return redirect(ffffffffffffffffffffffffffffffff)
+    else:
+        form = ProjectForm()
+    return render(request, 'postproject.html',{"form":form})
+
 class ProjectsList(APIView):
     permission_classes = (IsAdminOrReadOnly,)
 
@@ -65,27 +78,7 @@ class ProjectsList(APIView):
             return Response(serializers.data, status=status.HTTP_201_CREATED)
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
         
-class ProjectsDescription(APIView):
-    permission_classes = (IsAdminOrReadOnly,)
-    def get_projects(self, pk):
-        try:
-            return Projects.objects.get(pk=pk)
-        except Projects.DoesNotExist:
-            return Response(serializers.data)
 
-    def put(self, request, pk, format=None):
-        merch = self.get_merch(pk)
-        serializers = MerchSerializer(merch, request.data)
-        if serializers.is_valid():
-            serializers.save()
-            return Response(serializers.data)
-        else:
-            return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def delete(self, request, pk, format=None):
-        merch = self.get_merch(pk)
-        merch.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 # token by postman after creating post method   "token": "555f67e0f9575a9f5ac3f09822c4c4e8ee30bd26"
