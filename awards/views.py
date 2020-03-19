@@ -67,7 +67,7 @@ def search(request):
         search_proj = request.GET.get('user')
         projects_searched = Projects.search_by_project(search_proj)
         message = f'{search_proj}'
-        return render(request, 'search.html',{"users":projects_searched, "message":message})
+        return render(request, 'search.html',{"projects":projects_searched, "message":message})
 
 
 
