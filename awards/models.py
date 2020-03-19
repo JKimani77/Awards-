@@ -32,7 +32,7 @@ class Profile(models.Model):
 
     @classmethod
     def get_profile_id(cls, id):
-        profile = cls.objects.filter(user_id=id).all()
+        profile = cls.objects.filter(id=id).all()
         return profile
 
 class Projects(models.Model):

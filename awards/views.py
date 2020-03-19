@@ -45,7 +45,7 @@ def profile_user(request, id):
     funcion to display user profile
     '''
     current_user = request.user
-    profile = Profile.objects.get_profile_id(current_user.id).all()
+    profile = Profile.objects.filter(user_id = id).all()
     projects = Projects.objects.filter(profile=current_user.id).all()
     return render(request, 'profile.html', {"profile":profile, "projects":projects})
 
@@ -70,13 +70,13 @@ class ProjectsList(APIView):
         serializers = ProjectsSerializer(all_projects, many=True)
         return Response(serializers.data)
 
-    def post(self, request, format=None):
-        serializers = ProjectsSerializer(data=request.data)
+    # def post(self, request, format=None):
+    #     serializers = ProjectsSerializer(data=request.data)
         
-        if serializers.is_valid():
-            serializers.save()
-            return Response(serializers.data, status=status.HTTP_201_CREATED)
-        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+    #     if serializers.is_valid():
+    #         serializers.save()
+    #         return Response(serializers.data, status=status.HTTP_201_CREATED)
+    #     return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
         
 
 
