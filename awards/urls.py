@@ -13,7 +13,7 @@ urlpatterns  = [
     path('api/proj/', views.ProjectsList.as_view()),
     # path('api/proj/<int:id>/', views.ProjectsDescription.as_view()),
     path('post/', views.post, name = 'postproject'),
-    # path(r'^search/', views.search, name='searchbyprojectname'),
+    path('search/', views.search, name='searchbyprojectname'),
     # # path(r'^login/', views.login, name='login'),
     # path(r'^logout/$', views.logout_view, name='logout'),
     #https://overflow.io/ 

@@ -62,6 +62,15 @@ def post(request):
         form = ProjectsForm()
     return render(request, 'postproject.html',{"form":form})
 
+def search(request):
+    if 'project' in request.GET and request.GET['project']:
+        search_proj = request.GET.get('user')
+        projects_searched = Projects.search_by_project(search_proj)
+        message = f'{search_proj}'
+        return render(request, 'search.html',{"users":projects_searched, "message":message})
+
+
+
 class ProjectsList(APIView):
     permission_classes = (IsAdminOrReadOnly,)
 
