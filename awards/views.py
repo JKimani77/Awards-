@@ -10,14 +10,17 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from .models import Projects, Profile, Rating
-from .forms import ProfileForm, ProjectsForm
-from .serializer import ProjectsSerializer
+from .forms import ProfileForm, ProjectsForm, ReviewForm
+from .serializer import ProjectsSerializer, ProfileSerializer
 from .permissions import IsAdminOrReadOnly
 
 from django.conf import settings
 import os
 # Create your views here.
 def index(request):
+    '''
+    view fuction to display landing page
+    '''
     projects = Projects.get_project()
     return render(request, 'home.html', {"projects":projects})
 
@@ -50,6 +53,9 @@ def profile_user(request, id):
     return render(request, 'profile.html', {"profile":profile, "projects":projects})
 
 def post(request):
+    '''
+    view function to render a form to post projects
+    '''
     current_user = request.user
     if request.method=="POST":
         form = ProjectsForm(request.POST,request.FILES)
@@ -63,13 +69,55 @@ def post(request):
     return render(request, 'postproject.html',{"form":form})
 
 def search(request):
+    '''
+    view function to search by project titles
+    '''
     if 'project' in request.GET and request.GET['project']:
-        search_proj = request.GET.get('user')
-        projects_searched = Projects.search_by_project(search_proj)
+        search_proj = request.GET.get('project')
+        projects_searched = Projects.searchproject(search_proj)
         message = f'{search_proj}'
         return render(request, 'search.html',{"projects":projects_searched, "message":message})
 
+def rate(request, id):
+    '''
+    view function to render the review form
+    '''
+    current_user = request.user
+    project = Projects.objects.get(pk=id)
+    reviews = Rating.objects.filter(project=project.id).all()
+    if request.method =='POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.user = current_user
+            review.project = project
+            review.save_review()
+            # alert("Your response has been recorded")
+            return redirect(index)
+        
+    else:
+        form = ReviewForm()
+    return render(request, 'reviewform.html', {"form":form, "project":project, "reviews":reviews}) 
 
+def rated(request, id):
+    project = Projects.objects.get(pk=id)
+    ratings = Rating.objects.filter(project=project.id).all()
+    design = Rating.objects.filter(project=project.id).values_list('design',flat=True)
+    usability = Rating.objects.filter(project=project.id).values_list('usability',flat=True)
+    content = Rating.objects.filter(project=project.id).values_list('content',flat=True)
+    total_d=0
+    total_u=0
+    total_c = 0
+    for score in design:
+        total_d+=score
+    for score in usability:
+        total_u+=score
+    for score in content:
+        total_c+=score
+        
+        
+    average = (total_d + total_u + total_c)/3
+    return render(request, 'review.html',{"project":project, "ratings":ratings,"total_score":average}) 
 
 class ProjectsList(APIView):
     permission_classes = (IsAdminOrReadOnly,)
@@ -77,6 +125,12 @@ class ProjectsList(APIView):
     def get(self, request, format=None):
         all_projects = Projects.objects.all()
         serializers = ProjectsSerializer(all_projects, many=True)
+        return Response(serializers.data)
+
+class ProfileList(APIView):
+    def get(self, request, format=None):
+        all_profiles = Profile.objects.all()
+        serializers = ProfileSerializer(all_profiles, many=True)
         return Response(serializers.data)
 
     # def post(self, request, format=None):

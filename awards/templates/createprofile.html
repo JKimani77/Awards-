@@ -7,7 +7,7 @@
   <div class="row">
     <h1 style="text-align: center; color: whitesmoke; font-size: xx-large;">CREATE/UPDATE PROFILE</h1>
     <div class="col-md-12">
-      <form action="{%url 'create-profile' %}" method="post">
+      <form action="{%url 'createprofile' %}" method="post">
         {%csrf_token%}
 
         {%bootstrap_form form%}

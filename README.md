@@ -1,6 +1,6 @@
 # Avvards Clone
 [![License: MIT]()](LICENSE)
-[![codebeat badge]()]()
+
 
 ## Description
 This a web application built using Python, Django and Postgresql.The app is a clone  of the Awwwards web app, you can view posted projects that contains the title, a screenshot of the landing page and the project description. As a user you can post project to be reviewed by other users.One can also rate and review other users' projects, as well as searching for a specific project, view your own and other users' projects. The user can also view their profile page.

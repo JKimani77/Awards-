@@ -22,14 +22,14 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="#" style="font-size: xx-large; color: rgb(37, 175, 2);">User: {{ user.username }}</a>
             <a class="dropdown-item" href="/profile/{{user.id}}">My Profile</a> 
-            <a class="dropdown-item" href="{% url 'create-profile' %}">Update Profile</a>
+            <a class="dropdown-item" href="{% url 'createprofile' %}">Update Profile</a>
             <a class="dropdown-item" href="{% url 'logout'%}" onclick="showAlert('You have successfully logged out')">Log Out</a> 
             <a class="dropdown-item" href="{% url 'postproject'%}">Submit a Project</a>
           </div>
         </li>
        
       </ul>
-      <form method="GET" class="form-inline" action="#">
+      <form method="GET" class="form-inline" action="{% url 'searchbyprojectname'%}">
         <input  type="search" name= "user" placeholder="Search Projects" aria-label="Search" >
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
       </form>

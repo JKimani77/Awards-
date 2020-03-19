@@ -8,14 +8,14 @@ from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns  = [
     path('', views.index, name='index'),
-    path('profile/', views.profile, name='create-profile'),
+    path('profile/', views.profile, name='createprofile'),
     path('profile/<int:id>/', views.profile_user, name='profiley'),
     path('api/proj/', views.ProjectsList.as_view()),
     # path('api/proj/<int:id>/', views.ProjectsDescription.as_view()),
     path('post/', views.post, name = 'postproject'),
     path('search/', views.search, name='searchbyprojectname'),
-    # # path(r'^login/', views.login, name='login'),
-    # path(r'^logout/$', views.logout_view, name='logout'),
+    path('ratingform/<int:id>/',views.rate, name='ratingz'),
+    path('rate/<int:id>',views.rated,name='rated'),
     #https://overflow.io/ 
     #https://www.abbeyroad.com/about-us
     #https://www.swiss.com/worldofswiss/en
