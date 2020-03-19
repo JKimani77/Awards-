@@ -10,7 +10,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from .models import Projects, Profile, Rating
-from .forms import ProfileForm
+from .forms import ProfileForm, ProjectsForm
 from .serializer import ProjectsSerializer
 from .permissions import IsAdminOrReadOnly
 
@@ -55,11 +55,11 @@ def post(request):
         form = ProjectsForm(request.POST,request.FILES)
         if form.is_valid():
             projects = form.save(commit=False)
-            projecst.profile = current_user.profile
+            projects.profile = current_user.profile
             projects.save_project()
-            return redirect(ffffffffffffffffffffffffffffffff)
+            return redirect(index)
     else:
-        form = ProjectForm()
+        form = ProjectsForm()
     return render(request, 'postproject.html',{"form":form})
 
 class ProjectsList(APIView):
