@@ -65,14 +65,14 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 ## Technologies Used
-    Python Shell
+    
     Python 3.7
     Django
-    Bootstrap Materialize
+    Bootstrap 4
     HTML
-    CSS
+    Javascript
     PostgreSQL
-    Django Rest Framework
+    
 
 
 ## Known Bugs
